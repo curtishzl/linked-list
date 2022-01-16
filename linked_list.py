@@ -1,14 +1,18 @@
 class LinkedList:
-    def __init__(self, len=0):
+    def __init__(self):
         self.head = None
         self.tail = None
+        self.length = 0
 
     def add_first(self, node):
-        if self.len() == 0: # head and tail are None
+        if type(node) != Node:
+            node = Node(node)
+
+        if self.length == 0: # head and tail are None
             self.head = Node(node.value)
             self.tail = self.head
 
-        elif self.len() == 1: # head == tail
+        elif self.length == 1: # head == tail
             node.next = self.head
             self.tail = self.head
             self.head = node
@@ -17,11 +21,16 @@ class LinkedList:
             node.next = self.head
             self.head = node
 
+        self.length += 1
+
     def add_last(self, node):
-        if self.len() == 0: # head and tail are None
+        if type(node) != Node:
+            node = Node(node)
+
+        if self.length == 0: # head and tail are None
             self.add_first(node)
 
-        elif self.len() == 1: # head == tail
+        elif self.length == 1: # head == tail
             node.next = None
             self.head.next = node
             self.tail = node
@@ -30,19 +39,30 @@ class LinkedList:
             node.next = None
             self.tail.next = node
             self.tail = node
-            
 
+        self.length += 1
 
-    def add(self, node, index):
-        pass
+    def add(self, node, index=None):
+        if type(node) != Node:
+            node = Node(node)
 
-    def len(self):
-        len = 0
-        node = self.head
-        while node != None:
-            len += 1
-            node = node.next
-        return len
+        if index == None:
+            index = self.length
+        if index < 0 or index > self.length:
+            raise IndexError('index out of bounds')
+        
+        if index == self.length: # includes length 0 and 1
+            self.add_last(node)
+        elif index == 0: # treat as special case because range(0-1) in the else block would not yield intended result
+            self.add_first(node)
+        else:
+            node_i = self.head
+            for i in range(index-1):
+                node_i = node_i.next
+            node.next = node_i.next
+            node_i.next = node
+
+        self.length += 1
 
     def __str__(self):
         node = self.head
