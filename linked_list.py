@@ -45,16 +45,15 @@ class LinkedList:
         return len
 
     def __str__(self):
-        if self.head == None:
-            return ''
-        return LinkedList.___str__(self.head)
+        node = self.head
+        string = '['
+        if node == None:
+            return string + ']'
 
-    @staticmethod
-    # Helper function for __str__()
-    def ___str__(node):
-        if node.next == None:
-            return str(node.value)
-        return str(node.value) + ', ' + LinkedList.___str__(node.next)
+        while node != None:
+            string += str(node) + ', '
+            node = node.next
+        return string[:-2] + ']'
 
 
 
