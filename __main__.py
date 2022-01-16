@@ -1,9 +1,13 @@
 
-import linked_list
+from linked_list import Node, LinkedList
 
 def main():
-    head = linked_list.Node('First node')
-    print('value: ', head.value, '\nnext: ', head.next)
+    #print(LinkedList.___str__(Node('node')))
+    lis = LinkedList()
+    lis.add_last(Node(1))
+    lis.add_first(Node(2))
+    lis.add_last(Node(3))
+    print(str(lis) + '\nhead: ' + str(lis.head) + "\ntail: " + str(lis.tail))
 
 if __name__ == '__main__':
     main()
