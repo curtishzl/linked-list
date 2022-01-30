@@ -137,6 +137,21 @@ class LinkedList:
         return string[:-2] + ']'
 
 
+    def __eq__(self, other):
+        node1 = self.head
+        node2 = other.head
+        
+        while node1 != None and node2 != None:
+            if node1.value != node2.value:
+                return False
+            node1 = node1.next
+            node2 = node2.next
+
+        return node1 == node2 == None
+        
+
+
+
 
 class Node:
 
